@@ -17,7 +17,7 @@ const lock = path.join(workRoot, 'campaign.lock')
 let best = git('rev-parse', '--verify', `${startRevision}^{commit}`)
 fs.mkdirSync(lock)
 const results = []
-const modelBudget = {maxTokens: 80000, maxTurns: 30, timeoutMs: 600000}
+const modelBudget = {maxTokens: 200000, maxTurns: 30, timeoutMs: 600000}
 const model = {provider: 'openai-codex', id: 'gpt-6.1-sol', thinking: 'high'}
 try {
   for (let i = 0; i < count; i++) {
@@ -30,6 +30,7 @@ try {
       fs.symlinkSync(path.join(root, 'node_modules'), path.join(checkout, 'node_modules'), 'dir')
       const prompt = `Authorised local performance research in this disposable checkout. Parent owns claimed Bead egw-m50; do not write tracker or change commits/branches/remotes. Make ONE speed/efficiency improvement in src/index.ts or src/causal-graph.ts, preserving the entire public TypeScript API, generic payloads, ordering, merge and version semantics. Only those two files may change. Do not edit evaluator, tests, fixtures, dependencies, generated files, reference, or code outside this checkout. No special-casing workloads, environment detection, precomputed answers, delayed work, removing validation, or caching mutable inputs. Do not run heavy commands: parent runs frozen correctness and paired benchmarks under admission after you finish. Read research/README.md and source, choose a concrete optimization, implement it, then stop with a short hypothesis summary. Aim to remove repeated work before adding machinery. No network or upstream writes. Previous experiments (derived results): ${JSON.stringify(results)}. Resource budget: ${JSON.stringify(modelBudget)}.`
       const proposal = await command('prime-agent', ['--print', '--mode', 'json', '--provider', model.provider, '--model', model.id, '--thinking', model.thinking, '--cwd', checkout, '--autonomous', '--autonomous-max-continuations', '1',
+        '--autonomous-gate', 'git diff --check && ! git diff --quiet -- src/index.ts src/causal-graph.ts',
         '--autonomous-max-turns', String(modelBudget.maxTurns), '--autonomous-max-tokens', String(modelBudget.maxTokens),
         '--autonomous-timeout-ms', String(modelBudget.timeoutMs), prompt], {cwd: checkout, log, deadlineMs: modelBudget.timeoutMs + 30000, detached: true})
       const messages = proposal.split('\n').flatMap(line => { try { return [JSON.parse(line)] } catch { return [] } })
