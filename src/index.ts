@@ -327,13 +327,13 @@ function integrate(ctx: EditContext, cg: causalGraph.CausalGraph, newItem: Item,
   // We've found the position. Insert where the cursor points.
 }
 
-function apply1<T>(ctx: EditContext, snapshot: T[] | null, oplog: ListOpLog<T>, opId: number, insertCursor?: DocCursor): DocCursor | undefined {
+function apply1<T>(ctx: EditContext, snapshot: T[] | null, oplog: ListOpLog<T>, opId: number, cursorHint?: DocCursor): DocCursor {
   // This integrates the op into the document. This code is copied from reference-crdts.
   const op = oplog.ops[opId]
 
   if (op.type === 'del') {
     // This is simple. We just need to mark the item as deleted and delete it from the output.
-    const cursor = findByCurPos(ctx, op.pos)
+    const cursor = cursorHint ?? findByCurPos(ctx, op.pos)
     // Find the next item which we can actually delete.
     // This will crash if we fall off the end of the items list. Thats ok - that means
     // the data is invalid or we've messed something up somewhere.
@@ -360,10 +360,10 @@ function apply1<T>(ctx: EditContext, snapshot: T[] | null, oplog: ListOpLog<T>, 
 
     // And mark that this delete corresponds to *that* item.
     ctx.delTargets[opId] = item.opId
-    return undefined
+    return cursor
   } else {
     // Insert! This is much more complicated as we need to do the Yjs integration.
-    const cursor = insertCursor ?? findByCurPos(ctx, op.pos)
+    const cursor = cursorHint ?? findByCurPos(ctx, op.pos)
     // The cursor position is at the first valid insert location.
     if (cursor.idx > 0) {
       // Its valid because the previous item must be inserted in the current state.
@@ -504,14 +504,22 @@ export function traverseAndApply<T>(
 
     // Then apply the operation.
     const [start, end] = consume
-    let previousInsertCursor: DocCursor | undefined
+    let previousCursor: DocCursor | undefined
+    let previousType: ListOp<T>['type'] | undefined
     let previousPos = -1
     for (let lv = start; lv < end; lv++) {
       const op = oplog.ops[lv]
-      const cursor = op.type === 'ins' && previousInsertCursor !== undefined && op.pos === previousPos + 1
-        ? { idx: previousInsertCursor.idx + 1, endPos: previousInsertCursor.endPos + 1 }
-        : undefined
-      previousInsertCursor = apply1(ctx, snapshot, oplog, lv, cursor)
+      let cursor: DocCursor | undefined
+      if (previousCursor !== undefined && op.type === previousType) {
+        if (op.type === 'ins' && op.pos === previousPos + 1) {
+          cursor = { idx: previousCursor.idx + 1, endPos: previousCursor.endPos + 1 }
+        } else if (op.type === 'del' && op.pos === previousPos) {
+          // The deleted item now has zero width in both states. Resume the scan here.
+          cursor = previousCursor
+        }
+      }
+      previousCursor = apply1(ctx, snapshot, oplog, lv, cursor)
+      previousType = op.type
       previousPos = op.pos
     }
 
