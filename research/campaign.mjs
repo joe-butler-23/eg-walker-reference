@@ -17,7 +17,8 @@ const lock = path.join(workRoot, 'campaign.lock')
 let best = git('rev-parse', '--verify', `${startRevision}^{commit}`)
 fs.mkdirSync(lock)
 const results = []
-const modelBudget = {maxTokens: 20000, maxTurns: 30, timeoutMs: 600000}
+const modelBudget = {maxTokens: 80000, maxTurns: 30, timeoutMs: 600000}
+const model = {provider: 'openai-codex', id: 'gpt-6.1-sol', thinking: 'high'}
 try {
   for (let i = 0; i < count; i++) {
     const name = `experiment/${campaignId}/${i + 1}`
@@ -28,9 +29,15 @@ try {
       await command('git', ['worktree', 'add', '-b', name, checkout, best], {log: log + '-worktree'})
       fs.symlinkSync(path.join(root, 'node_modules'), path.join(checkout, 'node_modules'), 'dir')
       const prompt = `Authorised local performance research in this disposable checkout. Parent owns claimed Bead egw-m50; do not write tracker or change commits/branches/remotes. Make ONE speed/efficiency improvement in src/index.ts or src/causal-graph.ts, preserving the entire public TypeScript API, generic payloads, ordering, merge and version semantics. Only those two files may change. Do not edit evaluator, tests, fixtures, dependencies, generated files, reference, or code outside this checkout. No special-casing workloads, environment detection, precomputed answers, delayed work, removing validation, or caching mutable inputs. Do not run heavy commands: parent runs frozen correctness and paired benchmarks under admission after you finish. Read research/README.md and source, choose a concrete optimization, implement it, then stop with a short hypothesis summary. Aim to remove repeated work before adding machinery. No network or upstream writes. Previous experiments (derived results): ${JSON.stringify(results)}. Resource budget: ${JSON.stringify(modelBudget)}.`
-      await command('prime-agent', ['--print', '--cwd', checkout, '--autonomous', '--autonomous-max-continuations', '1',
+      const proposal = await command('prime-agent', ['--print', '--mode', 'json', '--provider', model.provider, '--model', model.id, '--thinking', model.thinking, '--cwd', checkout, '--autonomous', '--autonomous-max-continuations', '1',
         '--autonomous-max-turns', String(modelBudget.maxTurns), '--autonomous-max-tokens', String(modelBudget.maxTokens),
         '--autonomous-timeout-ms', String(modelBudget.timeoutMs), prompt], {cwd: checkout, log, deadlineMs: modelBudget.timeoutMs + 30000, detached: true})
+      const messages = proposal.split('\n').flatMap(line => { try { return [JSON.parse(line)] } catch { return [] } })
+      record.model = model
+      record.proposalSession = messages.find(event => event.type === 'session')?.id
+      const response = messages.filter(event => event.type === 'message_end' && event.message?.role === 'assistant').at(-1)?.message
+      record.hypothesis = response?.content?.filter(part => part.type === 'text').map(part => part.text).join('\n') ?? ''
+      if (!messages.some(event => event.type === 'agent_end')) throw Error('Proposal did not finish')
       if (git('-C', checkout, 'rev-parse', 'HEAD') !== record.base) throw Error('Proposer changed commits')
       const modified = git('-C', checkout, 'status', '--porcelain', '--untracked-files=all').split('\n').filter(Boolean)
       if (modified.length === 0 || modified.some(line => !['src/index.ts', 'src/causal-graph.ts'].includes(line.slice(3)))) {
@@ -57,11 +64,12 @@ try {
       if (fs.existsSync(checkout)) await command('git', ['worktree', 'remove', '--force', checkout])
     }
     results.push(record)
-    fs.writeFileSync(path.join(directory, 'campaign.json.tmp'), JSON.stringify({campaignId, modelBudget, best, results}, null, 2) + '\n')
+    fs.writeFileSync(path.join(directory, 'campaign.json.tmp'), JSON.stringify({campaignId, modelBudget, model, best, results}, null, 2) + '\n')
     fs.renameSync(path.join(directory, 'campaign.json.tmp'), path.join(directory, 'campaign.json'))
     console.log(JSON.stringify(record))
   }
 } finally {
   fs.rmdirSync(lock)
 }
-console.log(JSON.stringify({event: 'campaign-complete', best, experiments: results.length, directory}))
+console.log(JSON.stringify({event: 'campaign-complete', best, experiments: results.length, accepted: results.filter(x => x.status === 'keep').length, failed: results.filter(x => x.status === 'failed').length, directory}))
+if (results.every(x => x.status === 'failed')) process.exitCode = 1
