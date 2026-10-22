@@ -9,7 +9,7 @@ Use Node **26.12.0**, npm **11.20.0**, and the committed lockfile (TypeScript **
 ```sh
 npm ci --ignore-scripts
 agent-heavy npm test
-node --test research/policy.test.mjs
+node --test research/policy.test.mjs research/runner.test.mjs
 # Both revisions must exist locally. Candidate differences must be src-only.
 agent-heavy node research/evaluate.mjs BASE_COMMIT CANDIDATE_COMMIT
 # First measure unchanged code against itself to assess the harness/noise.
@@ -46,6 +46,8 @@ node research/campaign.mjs 3 HEAD
 
 Requires the already-authenticated `prime-agent` CLI; no provider account or paid compute is created. It explicitly uses `openai-codex/gpt-6.1-sol` with high reasoning, so this consumes that account's quota. The explicit model was smoke-tested; the unpinned CLI selected an unsupported model during setup. Each proposal is limited to **200,000 cumulative tokens, 30 turns, 10 minutes**, with one continuation and a 30-second CLI-exit safety margin. The native proposal gate checks only that a source diff exists and passes whitespace validation; it does not certify correctness or speed. The model runtime counts repeated input context, not only generated output: the initial 80,000-token proposal smoke exceeded that budget after producing a patch, so the supervisor correctly rejected it and its proposal budget was calibrated to 200,000. Evaluator acceptance thresholds did not change. Evaluation has a separate one-hour safety bound (including admission wait); the outer proposal loop cannot run forever.
 
-Each proposal starts from the current best in a disposable worktree. Only `src/index.ts` and `src/causal-graph.ts` may change. The supervisor checks scope, commits the candidate, evaluates through `agent-heavy`, and records keep/discard/failure. It never resets your checkout, edits tests to pass, pushes, or auto-merges. Every new campaign uses fresh branches; successful candidates advance `research/best-<campaign-id>`. Inspect results and fast-forward/cherry-pick deliberately. No improvement is promised.
+Do not edit the evaluator, result Markdown or dependencies while a campaign evaluates: fingerprint changes invalidate its evidence. Each proposal starts from the current best in a disposable worktree. Only `src/index.ts` and `src/causal-graph.ts` may change. The supervisor checks scope, commits the candidate, evaluates through `agent-heavy`, and records keep/discard/failure. It never resets your checkout, edits tests to pass, pushes, or auto-merges. Every new campaign uses fresh branches; successful candidates advance `research/best-<campaign-id>`. Inspect results and fast-forward/cherry-pick deliberately. No improvement is promised.
 
 The scope boundary catches ordinary accidental evaluator edits; this is not a sandbox for a hostile model. Candidate code has normal local process privileges. Run on a dedicated machine for stronger performance isolation, and use an OS sandbox for untrusted code.
+
+Current measured results and known limits: [RESULTS.md](RESULTS.md). Native CLI model generation was exercised and yielded a verified patch; subsequent clean unattended cycles failed on provider connectivity/overload. The loop is paused; no background campaign or fully green unattended run is claimed.

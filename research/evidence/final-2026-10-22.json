@@ -1,0 +1,522 @@
+{
+  "date": "2026-10-22",
+  "upstream": "7287f4bc2c054984838b3582a27b4fea8f6d8161",
+  "originalSourceControl": "ff523b71f5360f80c0df7b487d19c2e991905aac",
+  "measuredCandidate": "cbede7cf36788092e46c24dcb054bc167c67ec36",
+  "landedSourceEquivalent": "5badb6380587eeb9ae155267c4129191cd9323e7",
+  "sourceBlob": "8ba5a93487a13c751b212ab3a19d1555c6203f34",
+  "decision": {
+    "status": "keep",
+    "speedup": 5.66474110613691,
+    "roundSpeedups": [
+      5.41058762577951,
+      5.5991622705938,
+      5.838974582332895
+    ],
+    "reasons": [],
+    "workloads": [
+      {
+        "name": "ff-full",
+        "baseMs": 455.4822989999998,
+        "candidateMs": 98.42887999999994,
+        "speedup": 4.627526992077936,
+        "rssRatio": 1.0070867298230153,
+        "roundSpeedups": [
+          4.329322305932851,
+          4.46736120536981,
+          4.51403027489796
+        ]
+      },
+      {
+        "name": "git-prefix",
+        "baseMs": 591.849694,
+        "candidateMs": 181.27825200000007,
+        "speedup": 3.2648687168497177,
+        "rssRatio": 1.011447678992919,
+        "roundSpeedups": [
+          3.226794973594552,
+          3.403467577737961,
+          3.4237590705423036
+        ]
+      },
+      {
+        "name": "node-prefix",
+        "baseMs": 454.7187489999999,
+        "candidateMs": 62.52094800000009,
+        "speedup": 7.273062286259627,
+        "rssRatio": 1.0069548559053807,
+        "roundSpeedups": [
+          7.409395026994622,
+          7.443882830109557,
+          7.933887444129785
+        ]
+      },
+      {
+        "name": "append",
+        "baseMs": 43.96676899999997,
+        "candidateMs": 1.9767999999999972,
+        "speedup": 22.241384560906532,
+        "rssRatio": 1.0121116107931316,
+        "roundSpeedups": [
+          20.161796434809638,
+          22.31709957226276,
+          24.188359975718367
+        ]
+      },
+      {
+        "name": "middle-edits",
+        "baseMs": 9.142854999999997,
+        "candidateMs": 8.041173999999998,
+        "speedup": 1.137004994544329,
+        "rssRatio": 0.9989823116064939,
+        "roundSpeedups": [
+          1.125133696281733,
+          1.0843307208624011,
+          1.156811784762537
+        ]
+      },
+      {
+        "name": "deletion-heavy",
+        "baseMs": 14.007072999999991,
+        "candidateMs": 6.878377999999998,
+        "speedup": 2.0363918644773515,
+        "rssRatio": 1.0082266009852217,
+        "roundSpeedups": [
+          1.8700123805011226,
+          2.0246397093854185,
+          2.123016938004862
+        ]
+      },
+      {
+        "name": "concurrent-inserts",
+        "baseMs": 5.559176000000008,
+        "candidateMs": 4.464039000000014,
+        "speedup": 1.2453242455991067,
+        "rssRatio": 1.0033825338253382,
+        "roundSpeedups": [
+          1.2531436217291043,
+          1.315318310203941,
+          1.1435476047560595
+        ]
+      },
+      {
+        "name": "incremental-merge",
+        "baseMs": 37.92080800000002,
+        "candidateMs": 15.099665000000016,
+        "speedup": 2.5113675038485943,
+        "rssRatio": 0.9983235139148345,
+        "roundSpeedups": [
+          2.4344407018279663,
+          2.184976624787801,
+          2.599364886571982
+        ]
+      },
+      {
+        "name": "redundant-merge",
+        "baseMs": 30.059875999999974,
+        "candidateMs": 0.0885680000000093,
+        "speedup": 339.39883479356894,
+        "rssRatio": 0.8049403437078119,
+        "roundSpeedups": [
+          296.6524824096836,
+          339.39883479356894,
+          364.3606608479171
+        ]
+      }
+    ]
+  },
+  "correctness": {
+    "status": "pass",
+    "cases": 7886,
+    "suite": "holdout",
+    "seeds": [
+      90000,
+      90001,
+      90002,
+      90003,
+      90004,
+      90005,
+      90006,
+      90007,
+      90008,
+      90009,
+      90010,
+      90011,
+      90012,
+      90013,
+      90014,
+      90015,
+      90016,
+      90017,
+      90018,
+      90019,
+      90020,
+      90021,
+      90022,
+      90023
+    ],
+    "corpus": [
+      {
+        "name": "ff-full",
+        "fixture": "ff-raw.json",
+        "fixtureSha256": "3ed8056ca141b7a513e4d3cc4790e5490869cb440753b0d3a4ddaf4ce18b26ee",
+        "operations": 26078,
+        "transactions": 3727,
+        "fullTrace": true,
+        "operationCap": null
+      },
+      {
+        "name": "git-prefix",
+        "fixture": "git-makefile-raw.json",
+        "fixtureSha256": "f4c5056f538d1e2a4490c6632558f26bd8d1c4147801bce2ffc2a9674f37a63d",
+        "operations": 31576,
+        "transactions": 143,
+        "fullTrace": false,
+        "operationCap": 32000
+      },
+      {
+        "name": "node-prefix",
+        "fixture": "node_nodecc-raw.json",
+        "fixtureSha256": "0d556fdf974f9f5da7fd0336121029c5542220f830ad6e6ca2e93f64af6e3e1f",
+        "operations": 30514,
+        "transactions": 2,
+        "fullTrace": false,
+        "operationCap": 32000
+      },
+      {
+        "name": "append",
+        "operations": 6000,
+        "synthetic": true
+      },
+      {
+        "name": "middle-edits",
+        "operations": 4400,
+        "synthetic": true
+      },
+      {
+        "name": "deletion-heavy",
+        "operations": 5400,
+        "synthetic": true
+      },
+      {
+        "name": "concurrent-inserts",
+        "operations": 2720,
+        "synthetic": true
+      },
+      {
+        "name": "incremental-merge",
+        "operations": 3136,
+        "merges": 5,
+        "synthetic": true
+      },
+      {
+        "name": "redundant-merge",
+        "operations": 7000,
+        "merges": 12,
+        "synthetic": true
+      }
+    ],
+    "workloadModuleSha256": "601304b1040338d7e600ad0b0323d91db9828680e3b6e662cdc54fb3c2eb84a4"
+  },
+  "environment": {
+    "evaluator": {
+      "README.md": "306a483f8b5fd27052cdafd65ca785e3cc2dee324d7187e14b7caa699873deeb",
+      "RESULTS.md": "1d558a11616e4e1dee0147dca56686f041ea8c3bc14c07241972de58496f23df",
+      "bench-worker.mjs": "1a3164266be899bb9f9989dd846e8fe2594315f66c9d3ac485d7fdd83094553f",
+      "campaign.mjs": "51c19fb65c5d58eef37f6d1faf0891c97b2af8c01aea946fe00b951c2be9dde7",
+      "check.mjs": "d3840ecc82cdf9662a10a0af4a5a15438b07204f26e707c79ca1a68df0ac6b0a",
+      "evaluate.mjs": "1b909375bc78057474c7eeb84874bc71c01f5283577b56d56e2f791a6331c8be",
+      "full-traces.mjs": "4ae5ebc116256e07a7ac7f9c4dc531737d9793383a075ab1245140bfcc341193",
+      "policy.mjs": "dc66df4abe096df943d4b3450ff8407d15d8914ac40d7033e2ae4bbcabf3cf56",
+      "policy.test.mjs": "cf325cfbd2655e0d303ec377f2d50241ace7ea9b5c0f5cd95d28bb8c1dc21233",
+      "runner.test.mjs": "9abafc974050f30a66deaeeedc5946ee2a89d0392185f12d04cf25210b1553df",
+      "workloads.mjs": "601304b1040338d7e600ad0b0323d91db9828680e3b6e662cdc54fb3c2eb84a4"
+    },
+    "lock": "746be1de2e235c6c050160bc438ab3d07c49b3b1b20621d9a6a13a68834fb1df",
+    "installedLock": "a78143d1b5fc2fcc2418acd6f581513169b55f508ce5aa99887e651864833685",
+    "compiler": "cc6c706138edf6780af9fa749232b34eb4cb8c553384f4e02b93fab6b2684dae",
+    "node": "v26.12.0",
+    "nodeExecutable": "/nix/store/psyznyjiz0q36ppcs9h1hicva2w2zp8n-nodejs-slim-26.12.0/bin/node",
+    "host": "minworker",
+    "os": "linux 6.18.57 x64",
+    "cpu": "AMD Ryzen 7 5825U with Radeon Graphics",
+    "env": {
+      "NODE_OPTIONS": "",
+      "UV_THREADPOOL_SIZE": ""
+    },
+    "policy": {
+      "oracle": "7287f4bc2c054984838b3582a27b4fea8f6d8161",
+      "rounds": 3,
+      "repeats": 3,
+      "minSpeedup": 1.03,
+      "minWorkloadSpeedup": 0.9523809523809523,
+      "maxRssRatio": 1.2,
+      "commandDeadlineMs": 180000
+    }
+  },
+  "incrementalDecision": {
+    "status": "keep",
+    "speedup": 1.284670224448168,
+    "roundSpeedups": [
+      1.2781671652555548,
+      1.3020156757456764,
+      1.2213863189407421
+    ],
+    "reasons": [],
+    "workloads": [
+      {
+        "name": "ff-full",
+        "baseMs": 120.36424399999999,
+        "candidateMs": 93.69073600000002,
+        "speedup": 1.2846973899319134,
+        "rssRatio": 0.9924918389553863,
+        "roundSpeedups": [
+          1.2865646310948222,
+          1.2318405418439664,
+          1.2910407656083507
+        ]
+      },
+      {
+        "name": "git-prefix",
+        "baseMs": 333.42202,
+        "candidateMs": 174.96081400000003,
+        "speedup": 1.9056954090302753,
+        "rssRatio": 0.9814893045047813,
+        "roundSpeedups": [
+          1.8568693851893259,
+          1.9136355252710382,
+          1.9799569348139856
+        ]
+      },
+      {
+        "name": "node-prefix",
+        "baseMs": 183.89588600000013,
+        "candidateMs": 60.35214300000007,
+        "speedup": 3.047048155357133,
+        "rssRatio": 0.9934856106209285,
+        "roundSpeedups": [
+          3.170321827677079,
+          3.1963732060729617,
+          3.082226364275641
+        ]
+      },
+      {
+        "name": "append",
+        "baseMs": 1.9051340000000039,
+        "candidateMs": 1.9238500000000016,
+        "speedup": 0.9902715908204913,
+        "rssRatio": 1.0006545161615144,
+        "roundSpeedups": [
+          0.9761639420952714,
+          1.0380498727117347,
+          0.881001894598891
+        ]
+      },
+      {
+        "name": "middle-edits",
+        "baseMs": 7.588718,
+        "candidateMs": 7.756465999999989,
+        "speedup": 0.9783731405513814,
+        "rssRatio": 0.9977190002426596,
+        "roundSpeedups": [
+          0.9010076486982044,
+          0.9846791051491764,
+          0.9786977261662824
+        ]
+      },
+      {
+        "name": "deletion-heavy",
+        "baseMs": 7.905799000000002,
+        "candidateMs": 6.5848729999999875,
+        "speedup": 1.2006000723172667,
+        "rssRatio": 0.9960198039025338,
+        "roundSpeedups": [
+          1.227397319248084,
+          1.2309236241206154,
+          1.106006383996881
+        ]
+      },
+      {
+        "name": "concurrent-inserts",
+        "baseMs": 4.515096,
+        "candidateMs": 4.25634500000001,
+        "speedup": 1.0607918296096743,
+        "rssRatio": 1.0050359712230217,
+        "roundSpeedups": [
+          1.08061423592307,
+          1.0217821674628007,
+          0.9705863661193428
+        ]
+      },
+      {
+        "name": "incremental-merge",
+        "baseMs": 16.09004600000003,
+        "candidateMs": 15.012351999999964,
+        "speedup": 1.0717871523396245,
+        "rssRatio": 0.9858660595712389,
+        "roundSpeedups": [
+          1.066768403604861,
+          1.1284634812719594,
+          1.1002360748393656
+        ]
+      },
+      {
+        "name": "redundant-merge",
+        "baseMs": 0.08408900000000585,
+        "candidateMs": 0.08704499999998916,
+        "speedup": 0.9660405537367606,
+        "rssRatio": 1.0126432599599782,
+        "roundSpeedups": [
+          0.9660405537367606,
+          0.9837502156286198,
+          0.7539006297064252
+        ]
+      }
+    ]
+  },
+  "archive": {
+    "path": "final-2026-10-22.tar.gz",
+    "sha256": "9fbd1464dd658116fbed3408fc6e8e30c4c58903adb813ba6f9b45ef971404fa"
+  },
+  "run": "2026-10-22T08-01-36.949Z-e2721cde",
+  "wrongOutputControl": {
+    "candidate": "938b775c0fe3447c32cb07297f2c841607438f64",
+    "status": "failed",
+    "error": "/nix/store/psyznyjiz0q36ppcs9h1hicva2w2zp8n-nodejs-slim-26.12.0/bin/node exited 1:  bad. The guy from Alessandro's comes to the door and talks to Monica through the intercom. There is a gold frame around the peephole thing in the purple door, which you just know that 60,000 people around the world also did because it seemed quirky/cool. How many of those survived until 2023 I wonder? She tells him to just call her. He says no, you would just hang up on me. He also needs to yell at another critic. Phoebe is on the way out for reasons that are lost to time and is a bad friend and lets him in blithely because she is the airhead one. This could be the start of an episode of Forensic Files, but instead Monica is scared of his anger for about 15 seconds and then she instantly gets angry and tells him how crappy his restaurant is. She happens to have some tomatoes on the table, grabs them and says LOOK I'll show you how to make this sauce. While this is not that implausible for a person who likes to cook, it feels weirdly artificial. While she does it, he disses her and says \"will this take long? I have another person to yell at\". Which is in character, but it makes her offer to show him what it should taste like seem like awkward, unjustified fawning. He offers her a job as head chef, just based on her dissing his restaurant and the fact that she said his marinara sauce is watery and tastes like tomato juice - it just needs some vodka and a celery stick. This comes across as a really big diss. This is an especially 90s kind of sassy joke like \"ooooh, you sauce so flavourless you could.... add these two ingredients.... and make it this kind of cocktail?\" Most of the diss is in the tone. Is it just me or does it seem like there is some sexual tension in the air? She just says that he's not Italian and he says he's Lebanese. I guess the unspoken assumption is that Lebanese people don't konw how to run good resteraunts. This would raise a few eyebrows in 2023. She al`... 11362 more characters,",
+    "noBenchmarkEvents": true
+  },
+  "campaigns": [
+    {
+      "campaignId": "2026-10-22T07-53-52.058Z",
+      "modelBudget": {
+        "maxTokens": 80000,
+        "maxTurns": 30,
+        "timeoutMs": 600000
+      },
+      "model": {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "thinking": "high"
+      },
+      "best": "505b81668566fb33ff1142391b14e8c9d7a36b63",
+      "results": [
+        {
+          "experiment": 1,
+          "base": "505b81668566fb33ff1142391b14e8c9d7a36b63",
+          "branch": "experiment/2026-10-22T07-53-52.058Z/1",
+          "status": "failed",
+          "error": "prime-agent exited 1: Autonomous run stopped before terminal evidence; maxTokens reached (95337/80000)"
+        }
+      ]
+    },
+    {
+      "campaignId": "2026-10-22T07-55-49.821Z",
+      "modelBudget": {
+        "maxTokens": 200000,
+        "maxTurns": 30,
+        "timeoutMs": 600000
+      },
+      "model": {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "thinking": "high"
+      },
+      "best": "6c44f267c5cd604475b45ccdc56304d6fc719875",
+      "results": [
+        {
+          "experiment": 1,
+          "base": "6c44f267c5cd604475b45ccdc56304d6fc719875",
+          "branch": "experiment/2026-10-22T07-55-49.821Z/1",
+          "status": "failed",
+          "model": {
+            "provider": "openai-codex",
+            "id": "gpt-6.1-sol",
+            "thinking": "high"
+          },
+          "proposalSession": "01a1629b-f358-720a-8511-3523b9918b77",
+          "hypothesis": "Changed only `src/index.ts`.\n\nHypothesis: reusing the cursor for consecutive deletes at the same position removes repeated prefix scans. Cursor reuse stays within one causal run; validation and state updates remain intact. No constants changed.\n\n`git diff --check` passed. Correctness and performance remain unverified; no tests or benchmarks run.",
+          "candidate": "cbede7cf36788092e46c24dcb054bc167c67ec36",
+          "error": "agent-heavy exited 1: file:///home/joebutler/development/eg-walker-reference/research/evaluate.mjs:152"
+        }
+      ]
+    },
+    {
+      "campaignId": "2026-10-22T07-59-36.547Z",
+      "modelBudget": {
+        "maxTokens": 200000,
+        "maxTurns": 30,
+        "timeoutMs": 600000
+      },
+      "model": {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "thinking": "high"
+      },
+      "best": "88b2df85c5d81ca555ca2a96ac2e9337e70a64cf",
+      "results": [
+        {
+          "experiment": 1,
+          "base": "88b2df85c5d81ca555ca2a96ac2e9337e70a64cf",
+          "branch": "experiment/2026-10-22T07-59-36.547Z/1",
+          "status": "failed",
+          "model": {
+            "provider": "openai-codex",
+            "id": "gpt-6.1-sol",
+            "thinking": "high"
+          },
+          "proposalSession": "01a1629f-68fb-7621-b3e0-e7fcc805e1f6",
+          "hypothesis": "",
+          "error": "Proposer changed out-of-scope files or no source: "
+        }
+      ]
+    },
+    {
+      "campaignId": "2026-10-22T08-01-36.846Z",
+      "modelBudget": {
+        "maxTokens": 200000,
+        "maxTurns": 30,
+        "timeoutMs": 600000
+      },
+      "model": {
+        "provider": "openai-codex",
+        "id": "gpt-6.1-sol",
+        "thinking": "high"
+      },
+      "best": "f39741680c68c00ad9824d29c43e45e94362ce2d",
+      "results": [
+        {
+          "experiment": 1,
+          "base": "f39741680c68c00ad9824d29c43e45e94362ce2d",
+          "branch": "experiment/2026-10-22T08-01-36.846Z/1",
+          "status": "failed",
+          "model": {
+            "provider": "openai-codex",
+            "id": "gpt-6.1-sol",
+            "thinking": "high"
+          },
+          "proposalSession": "01a162a1-3edd-75bb-8997-4efce5e8e6fd",
+          "hypothesis": "",
+          "error": "Proposal failed: Codex error: Our servers are currently overloaded. Please try again later."
+        }
+      ]
+    }
+  ],
+  "campaignStatus": "Paused after provider transport and overload failures. A native model proposal was committed and accepted by independent unchanged evaluator re-runs; no fully green unattended campaign is claimed.",
+  "fullTraces": {
+    "status": "pass",
+    "evidence": "full-traces-2026-10-22.json",
+    "operations": [
+      26078,
+      348819,
+      947337
+    ],
+    "exitCode": 0
+  },
+  "landedNativeTests": {
+    "command": "agent-heavy npm test",
+    "exitCode": 0,
+    "durationSeconds": 5.08487190498272,
+    "stdout": "\n> reference-reg@1.0.0 test\n> tsc && node dist/test/test.js && node dist/test/fuzzer.js\n\nReplaying editing history from testdata/ff-raw.json\nprocessing 26078 ops...\nGenerated output 1 times in 165 ms\nOK!\nRunning 1000 conformance tests...\nAll tests pass!\ni 0\ni 10\ni 20\ni 30\ni 40\ni 50\ni 60\ni 70\ni 80\ni 90\n",
+    "sourceEquivalentCommit": "5badb6380587eeb9ae155267c4129191cd9323e7"
+  }
+}

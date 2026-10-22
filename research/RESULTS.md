@@ -1,40 +1,44 @@
-# First speed pilot — 2026-10-22
+# Speed research results — 2026-10-22
 
-Baseline `80e521c40fcb65d7f294828473812e072e774bff`; measured winner `7761ec37c7a43bceee74d5e68bb62561c433f84e`. The landed source is identical to that winner. Upstream reference is unchanged at `7287f4bc2c054984838b3582a27b4fea8f6d8161`.
+Final measured candidate `cbede7cf36788092e46c24dcb054bc167c67ec36`; landed source-equivalent commit `5badb6380587eeb9ae155267c4129191cd9323e7`. Original-source control `ff523b71f5360f80c0df7b487d19c2e991905aac` has exactly the same `src/` as upstream `7287f4bc2c054984838b3582a27b4fea8f6d8161`, with matching evaluator scaffold. Upstream is unchanged.
 
-Two source changes survive: reuse the final insertion cursor for immediately adjacent inserts within one causal run, and skip reconstruction when an incremental merge adds no operations. Neither changes the public TypeScript declarations. The equal-frontier graph shortcut was discarded. The cursor-only candidate was also discarded under the unchanged no-regression policy; the combined change passed against the accepted merge shortcut and then against the original baseline.
+Three small implementation changes survive: reuse the final insertion cursor for adjacent inserts within one causal run; reuse the cursor for repeated same-position deletes within that run; skip branch reconstruction when a merge adds no operations. The deletion change was proposed by the native autonomous CLI and accepted only after independent frozen evaluation. Public TypeScript declarations remain byte-identical.
 
 ## Final paired results
 
-Node 26.12.0; TypeScript 4.9.5; AMD Ryzen 7 5825U; Minworker. Three paired fresh-process rounds, two warmups and three samples per side. Medians below are fixed-work elapsed time, with input setup/GC outside the timed boundary.
+Node 26.12.0; TypeScript 4.9.5; AMD Ryzen 7 5825U; Minworker. Three paired fresh-process rounds, two warmups and three measured samples per side. Setup and GC are outside the fixed-work timer.
 
 | Workload | Original ms | Winner ms | Speedup | Peak RSS ratio |
 | --- | ---: | ---: | ---: | ---: |
-| ff-full | 412.584 | 119.417 | 3.45× | 1.011 |
-| git-prefix | 535.032 | 308.376 | 1.73× | 1.009 |
-| node-prefix | 435.241 | 180.241 | 2.41× | 1.022 |
-| append | 41.119 | 1.969 | 20.89× | 1.011 |
-| middle-edits | 8.693 | 7.363 | 1.18× | 1.006 |
-| deletion-heavy | 13.452 | 7.910 | 1.70× | 1.003 |
-| concurrent-inserts | 5.664 | 4.299 | 1.32× | 0.991 |
-| incremental-merge | 33.313 | 15.374 | 2.17× | 1.003 |
-| redundant-merge | 30.152 | 0.087 | 346.80× | 0.811 |
+| ff-full | 455.482 | 98.429 | 4.63× | 1.007 |
+| git-prefix | 591.850 | 181.278 | 3.26× | 1.011 |
+| node-prefix | 454.719 | 62.521 | 7.27× | 1.007 |
+| append | 43.967 | 1.977 | 22.24× | 1.012 |
+| middle-edits | 9.143 | 8.041 | 1.14× | 0.999 |
+| deletion-heavy | 14.007 | 6.878 | 2.04× | 1.008 |
+| concurrent-inserts | 5.559 | 4.464 | 1.25× | 1.003 |
+| incremental-merge | 37.921 | 15.100 | 2.51× | 0.998 |
+| redundant-merge | 30.060 | 0.089 | 339.40× | 0.805 |
 
-All workload medians improved. Corpus geometric mean is 4.39×, but the very large redundant-merge gain contributes strongly: this is not a universal application speedup. Prefix results are not full-trace speedups. Short sub-millisecond timings are especially sensitive to noise. RSS is whole-process lifetime peak including runtime, oracle, warmups and setup; post-run heap samples are not allocation peaks.
+All workload medians improved. Corpus geometric mean is 5.66×, influenced strongly by redundant merges; it is not a universal application speedup. The final deletion change independently passed against the first winner at 1.28× geometric mean, despite small sub-5% slowdowns on some short workloads. The shared host is not thermally/CPU isolated. Prefix results are not full-trace speedups. Sub-millisecond timings are especially noisy. RSS is whole-process lifetime peak including runtime/oracle/setup, not pure algorithm memory; sampled heap is not allocation peak.
 
-## Correctness and limits
+## Correctness and rejected experiments
 
-- Existing 1,000 conformance cases and 100 fuzz seeds pass unchanged.
-- 5,294 development differential checks and 7,886 separate holdout checks pass, including generic payloads, Unicode tokens, graph diffs, ordering/idempotence, branch versions and merge permutations.
-- Original and winner generated public declarations are byte-identical.
-- Full Firefox (26,078 ops) and Git Makefile (348,819 ops) outputs match stored expected text. Full Node (947,337 ops) exceeded the 180-second total validation budget and remains unresolved. Its measured prefix has 30,514 ops / 2 transactions.
-- The unchanged-code self-comparison was rejected. A nominal 2.6% geometric gain did not repeat across rounds. Acceptance thresholds were not weakened for candidates.
-- The host is shared and thermal/CPU activity is not fully isolated. This is repeatable local evidence, not a cross-machine claim or formal correctness proof.
+- Existing 1,000 conformance cases and 100 fuzz seeds pass unchanged on the landed source.
+- The final candidate passes 7,886 holdout differential checks, including generic payloads, Unicode, graph diffs, idempotence, version frontiers and merge permutations. The earlier pilot also passed 5,294 development checks; these are not counted as additional independent holdout evidence.
+- Public generated declarations are byte-identical.
+- All three full trace outputs match stored expected text on the final source: Firefox **26,078 ops**, Git Makefile **348,819 ops**, and Node **947,337 ops**. The earlier insert-only winner timed out on full Node; the final delete-cursor winner completed it within the same 180-second total budget. These are correctness runs, not paired full-trace speed measurements. Raw outputs and own exits are in `evidence/full-traces-2026-10-22.json`.
+- Unchanged-code self-comparison was rejected (apparent 2.6% gain did not repeat). The equal-frontier shortcut was discarded. Cursor-only was discarded for a redundant-merge regression; combined cursor + no-op shortcut passed. Acceptance thresholds were never weakened.
+- A deliberately wrong checkout implementation failed before any benchmark, proving semantic failures cannot buy speed.
 
-## Reproducible evidence
+## Autonomous driver status
 
-`evidence/pilot-2026-10-22.json` contains exact identities, environment, corpus hashes, samples and decisions. `evidence/pilot-2026-10-22.tar.gz` preserves the six complete evaluator runs and their raw child outputs/own exits. It excludes model prompts and transcripts. `evidence/full-traces-2026-10-22.json` records the partial full-trace check and its nonzero timeout exit honestly.
+The bounded driver is implemented and has produced a useful source patch. Its first draft exceeded an 80k cumulative token budget (input context counts repeatedly), and failed closed. The native draft-completion gate and a declared 200k token cap fixed that proposal boundary. A later evaluation was invalidated when result documentation changed mid-run; the evaluator rejected it, and the exact source was rerun independently with immutable inputs. Subsequent unattended cycles hit provider WebSocket and overload failures; they stopped without advancing the incumbent. No completely green unattended end-to-end campaign is claimed. The loop is paused, not running in the background.
 
-Archive SHA-256: `5108c0278663160fb98c39b217d22550e4ac938658b294b0050fed1a28d1e2ac`.
+## Evidence
 
-Run contracts, thresholds and bounded campaign commands: [README.md](README.md). A native model draft gate is only draft completion; frozen evaluator correctness and performance remain the acceptance authority.
+`evidence/final-2026-10-22.json` contains the final identities, samples, decisions, environment, candidate generation outcomes and limitations. `evidence/final-2026-10-22.tar.gz` preserves raw outputs/own exits for the final comparison, incremental comparison and wrong-output control. Model prompts/transcripts are excluded. The earlier six-run pilot remains in `evidence/pilot-2026-10-22.*` for attribution, not as the final source result.
+
+Final archive SHA-256: `9fbd1464dd658116fbed3408fc6e8e30c4c58903adb813ba6f9b45ef971404fa`.
+
+Contracts and finite campaign commands: [README.md](README.md). Do not run while editing evaluator or result files. Native model draft completion is not certification: the frozen correctness/performance evaluator alone admits a candidate.

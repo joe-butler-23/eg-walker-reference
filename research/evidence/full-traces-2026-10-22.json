@@ -1,17 +1,35 @@
 {
-  "candidate": "7761ec37c7a43bceee74d5e68bb62561c433f84e",
-  "sourceEquivalentHead": "505b81668566fb33ff1142391b14e8c9d7a36b63",
-  "command": [
-    "agent-heavy",
-    "timeout",
-    "180s",
-    "node",
-    "research/full-traces.mjs",
-    "SNAPSHOT_ROOT"
-  ],
-  "exitCode": 124,
-  "durationSeconds": 180.12371113098925,
-  "stdout": "{\"name\":\"ff-raw\",\"operations\":26078,\"status\":\"pass\",\"elapsedMs\":145.171225,\"peakRssBytes\":90537984}\n{\"name\":\"git-makefile-raw\",\"operations\":348819,\"status\":\"pass\",\"elapsedMs\":24856.507256,\"peakRssBytes\":197709824}\n",
-  "status": "incomplete",
-  "note": "Firefox and full Git Makefile outputs matched stored endContent. Full 947337-operation Node trace exceeded the 180-second total safety budget; no correctness result or speed claim for that full trace."
+  "date": "2026-10-22",
+  "final": {
+    "candidate": "cbede7cf36788092e46c24dcb054bc167c67ec36",
+    "sourceEquivalentCommit": "5badb6380587eeb9ae155267c4129191cd9323e7",
+    "command": "agent-heavy timeout 180s node research/full-traces.mjs .",
+    "exitCode": 0,
+    "durationSeconds": 82.27994509300333,
+    "stdout": "{\"name\":\"ff-raw\",\"operations\":26078,\"status\":\"pass\",\"elapsedMs\":122.23413400000001,\"peakRssBytes\":89780224}\n{\"name\":\"git-makefile-raw\",\"operations\":348819,\"status\":\"pass\",\"elapsedMs\":13149.437616,\"peakRssBytes\":198447104}\n{\"name\":\"node_nodecc-raw\",\"operations\":947337,\"status\":\"pass\",\"elapsedMs\":68670.814911,\"peakRssBytes\":272396288}\n",
+    "status": "pass",
+    "scriptPath": "research/full-traces.mjs",
+    "scriptSha256": "4ae5ebc116256e07a7ac7f9c4dc531737d9793383a075ab1245140bfcc341193",
+    "note": "Every full trace output matched its stored endContent. Elapsed times are single correctness-run observations, not paired performance results or full-trace speedups."
+  },
+  "earlierAttempt": {
+    "candidate": "7761ec37c7a43bceee74d5e68bb62561c433f84e",
+    "sourceEquivalentHead": "505b81668566fb33ff1142391b14e8c9d7a36b63",
+    "command": "agent-heavy timeout 180s node /tmp/egw-full-check.mjs '/home/joebutler/development/eg-walker-reference/research/.work/combined-proposal' ",
+    "exitCode": 124,
+    "durationSeconds": 180.12371113098925,
+    "stdout": "{\"name\":\"ff-raw\",\"operations\":26078,\"status\":\"pass\",\"elapsedMs\":145.171225,\"peakRssBytes\":90537984}\n{\"name\":\"git-makefile-raw\",\"operations\":348819,\"status\":\"pass\",\"elapsedMs\":24856.507256,\"peakRssBytes\":197709824}\n",
+    "status": "incomplete",
+    "note": "Firefox and full Git Makefile outputs matched stored endContent. Full 947337-operation Node trace exceeded the 180-second total safety budget; no correctness result or speed claim for that full trace.",
+    "reproduction": [
+      "agent-heavy",
+      "timeout",
+      "180s",
+      "node",
+      "research/full-traces.mjs",
+      "SNAPSHOT_ROOT"
+    ],
+    "scriptSha256": "4ae5ebc116256e07a7ac7f9c4dc531737d9793383a075ab1245140bfcc341193",
+    "reproductionNote": "The original command used the identical /tmp script, now retained as research/full-traces.mjs; SNAPSHOT_ROOT must be compiled from the exact candidate."
+  }
 }
