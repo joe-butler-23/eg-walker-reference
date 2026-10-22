@@ -45,9 +45,23 @@ All three passed unchanged conformance/fuzz tests, 5,294 development differentia
 
 The second proposal removes every intermediate output-array mutation from fresh checkout: the ordered CRDT items already encode its final visible values. Independent source review supports this invariant, including generic payload identity; incremental merge must keep its existing snapshot mutation path. It is a promising deletion, not an admitted speed improvement. All seven checkout workloads improved in this measurement, including append at 4.37×, but the merge guards still reject it. Setup is outside the timer but can affect later runtime/JIT state; these data do not establish why the merge timings regressed. No rejected candidate was repeatedly rerun to seek a favourable result, and no threshold was relaxed.
 
+## Second deletion-first campaign
+
+Campaign `2026-10-22T09-48-30.045Z` started at `39dbca5fffc3db237cf62fd1f158a3ddd150e079`, still with the same incumbent source. The proposal brief now explicitly reads prior results and avoids repeating rejected patches. All three proposals removed materially different work. Evaluator rules and resource limits were unchanged.
+
+| Proposal | Corpus speedup | Decision | Reason |
+| --- | ---: | --- | --- |
+| Delete private causal lookup tuple/trimmed-record intermediates | 1.003× | Discard | Below 3%; append and concurrent-insert regressions; no gain in every round. |
+| Bound merge placeholders from snapshot length minus conflict inserts plus conflict deletes | 0.971× | Discard | Incremental merge improved 1.16×, but corpus and other-workload guards failed. |
+| Replay missing graph entries directly instead of building a serialized diff | 1.033× | Discard | Append and incremental-merge regressions; no gain in every round. |
+
+All three completed original conformance/fuzz tests, 5,294 development differential checks each, exact generated declaration comparison and all paired timing rounds. All subprocesses and the supervisor exited 0. Frozen evaluator identities stayed equal, and raw exit/stream hashes were checked for all 69 verifier commands per candidate. No source was retained, no discarded patch was retried for a favourable score, and nothing remains running. The prior winner's exact-source holdout/full-trace proof remains applicable; no new such proof is claimed for discarded candidates.
+
+Independent source review supports the placeholder bound: with ancestor size M, branch size L, conflict inserts I and distinct deleted items U, `L=M+I-U`; counting all conflict deletes D gives `L-I+D=M+(D-U)>=M`. The unchanged conflict set includes both A and Shared ranges; omitting Shared can underallocate. Extra tail placeholders do not affect real ordering under current consumers. The type-count scan adds work, and this measurement does not establish which effects caused the regressions. The lookup deletion also simplified numeric arithmetic grouping, so its passing integer cases do not establish arbitrary-number compatibility. Full source reviews and exact candidate patches are in the evidence.
+
 ## Autonomous driver status
 
-The bounded driver has now completed a clean unattended three-proposal campaign: propose → source-only commit → frozen correctness and paired timing → discard → durable campaign record. All proposal, commit and evaluation subprocesses exited 0; the supervisor exited 0, with three completed evaluations, zero admitted candidates and zero failed experiments. Evaluator fingerprints were stable across all three runs. A completed discard proves orchestration, not a speed win. No campaign is left running.
+The bounded driver has now completed two clean unattended three-proposal campaigns: propose → source-only commit → frozen correctness and paired timing → discard → durable campaign record. Across both, all proposal, commit and evaluation subprocesses exited 0; both supervisors exited 0, with six completed evaluations, zero admitted candidates and zero failed experiments. Evaluator fingerprints were stable within each campaign. A completed discard proves orchestration, not a speed win. No campaign is left running.
 
 Earlier failures remain historical evidence: the initial 80k cumulative token cap was exceeded, documentation changed during one measurement, and provider WebSocket/overload errors blocked later attempts. Those runs failed closed and did not advance the incumbent. The 200k model cap and all frozen acceptance rules were unchanged for this campaign.
 
@@ -58,5 +72,7 @@ Earlier failures remain historical evidence: the initial 80k cumulative token ca
 Final archive SHA-256: `9fbd1464dd658116fbed3408fc6e8e30c4c58903adb813ba6f9b45ef971404fa`.
 
 `evidence/deletion-2026-10-22.json` records the completed deletion-first campaign, exact candidates, all three decisions, raw samples, unchanged evaluator identities and own exits. `evidence/deletion-2026-10-22.tar.gz` preserves verifier outputs, sanitized native command metadata, completed campaign record and source patches for the rejected candidates. Native proposal prompts/transcripts are excluded. Archive SHA-256: `45f0434f31afebeacfde9a6ebb7a090c8936a4a0b94aec2ef75eedc9f815e61c`.
+
+`evidence/deletion-2-2026-10-22.json` records the second deletion-first campaign and independent source reviews. `evidence/deletion-2-2026-10-22.tar.gz` preserves raw verifier streams/exits, sanitized native metadata, campaign record and all three rejected patches. SHA-256: `8fea5fca2f07ab31cabf7fabf2512d8ebeffaee2d1fe8dccc12cd85d4351a75f`. Native prompts/transcripts are excluded.
 
 Contracts and finite campaign commands: [README.md](README.md). Do not run while editing evaluator or result files. Native model draft completion is not certification: the frozen correctness/performance evaluator alone admits a candidate.

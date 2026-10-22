@@ -50,4 +50,4 @@ Do not edit the evaluator, result Markdown or dependencies while a campaign eval
 
 The scope boundary catches ordinary accidental evaluator edits; this is not a sandbox for a hostile model. Candidate code has normal local process privileges. Run on a dedicated machine for stronger performance isolation, and use an OS sandbox for untrusted code.
 
-Current measured results and known limits: [RESULTS.md](RESULTS.md). The first deletion-first campaign completed three unattended propose/commit/evaluate/discard cycles with intact evidence and stable evaluator fingerprints. None met every performance gate; the incumbent source is unchanged. No background campaign is running.
+Current measured results and known limits: [RESULTS.md](RESULTS.md). Two deletion-first campaigns completed six unattended propose/commit/evaluate/discard cycles with intact evidence and stable evaluator fingerprints within each campaign. None met every performance gate; the incumbent source is unchanged. Proposal briefs read prior outcomes to avoid repeating rejected patches. No background campaign is running.
