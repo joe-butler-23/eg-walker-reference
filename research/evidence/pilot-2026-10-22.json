@@ -1,0 +1,1117 @@
+{
+  "date": "2026-10-22",
+  "upstream": "7287f4bc2c054984838b3582a27b4fea8f6d8161",
+  "baseline": "80e521c40fcb65d7f294828473812e072e774bff",
+  "candidate": "7761ec37c7a43bceee74d5e68bb62561c433f84e",
+  "landedSourceEquivalent": "505b81668566fb33ff1142391b14e8c9d7a36b63",
+  "environment": {
+    "evaluator": {
+      "README.md": "41446e6442bb9f72017921b0d8e6108f5d2600f7bc2790f429f3ac1e311e1e0b",
+      "bench-worker.mjs": "1a3164266be899bb9f9989dd846e8fe2594315f66c9d3ac485d7fdd83094553f",
+      "campaign.mjs": "37304fa4153c25ce7ebcde6a2a1639ae5128739fd6891cab056362f61321a55c",
+      "check.mjs": "d3840ecc82cdf9662a10a0af4a5a15438b07204f26e707c79ca1a68df0ac6b0a",
+      "evaluate.mjs": "1b909375bc78057474c7eeb84874bc71c01f5283577b56d56e2f791a6331c8be",
+      "policy.mjs": "dc66df4abe096df943d4b3450ff8407d15d8914ac40d7033e2ae4bbcabf3cf56",
+      "policy.test.mjs": "cf325cfbd2655e0d303ec377f2d50241ace7ea9b5c0f5cd95d28bb8c1dc21233",
+      "runner.test.mjs": "9abafc974050f30a66deaeeedc5946ee2a89d0392185f12d04cf25210b1553df",
+      "workloads.mjs": "601304b1040338d7e600ad0b0323d91db9828680e3b6e662cdc54fb3c2eb84a4"
+    },
+    "lock": "746be1de2e235c6c050160bc438ab3d07c49b3b1b20621d9a6a13a68834fb1df",
+    "installedLock": "a78143d1b5fc2fcc2418acd6f581513169b55f508ce5aa99887e651864833685",
+    "compiler": "cc6c706138edf6780af9fa749232b34eb4cb8c553384f4e02b93fab6b2684dae",
+    "node": "v26.12.0",
+    "nodeExecutable": "/nix/store/psyznyjiz0q36ppcs9h1hicva2w2zp8n-nodejs-slim-26.12.0/bin/node",
+    "host": "minworker",
+    "os": "linux 6.18.57 x64",
+    "cpu": "AMD Ryzen 7 5825U with Radeon Graphics",
+    "env": {
+      "NODE_OPTIONS": "",
+      "UV_THREADPOOL_SIZE": ""
+    },
+    "policy": {
+      "oracle": "7287f4bc2c054984838b3582a27b4fea8f6d8161",
+      "rounds": 3,
+      "repeats": 3,
+      "minSpeedup": 1.03,
+      "minWorkloadSpeedup": 0.9523809523809523,
+      "maxRssRatio": 1.2,
+      "commandDeadlineMs": 180000
+    }
+  },
+  "decision": {
+    "status": "keep",
+    "speedup": 4.38616620652196,
+    "roundSpeedups": [
+      4.363220608807064,
+      4.321248724499151,
+      4.42260704968818
+    ],
+    "reasons": [],
+    "workloads": [
+      {
+        "name": "ff-full",
+        "baseMs": 412.58368599999994,
+        "candidateMs": 119.41727400000002,
+        "speedup": 3.4549749142657524,
+        "rssRatio": 1.0112604297423022,
+        "roundSpeedups": [
+          3.4631013684000194,
+          3.5266524117259657,
+          3.3118943191975525
+        ]
+      },
+      {
+        "name": "git-prefix",
+        "baseMs": 535.0323149999999,
+        "candidateMs": 308.376354,
+        "speedup": 1.7349978623847402,
+        "rssRatio": 1.0093713393205779,
+        "roundSpeedups": [
+          1.7188995398784699,
+          1.6769358050012075,
+          1.7464018937397932
+        ]
+      },
+      {
+        "name": "node-prefix",
+        "baseMs": 435.24056399999995,
+        "candidateMs": 180.24054999999998,
+        "speedup": 2.4147760534463525,
+        "rssRatio": 1.021827988706755,
+        "roundSpeedups": [
+          2.330107979953305,
+          2.327231437373492,
+          2.6992823260408647
+        ]
+      },
+      {
+        "name": "append",
+        "baseMs": 41.119348,
+        "candidateMs": 1.9687669999999997,
+        "speedup": 20.885837684195238,
+        "rssRatio": 1.010752688172043,
+        "roundSpeedups": [
+          20.825370396801645,
+          22.200075066481663,
+          19.077185884885612
+        ]
+      },
+      {
+        "name": "middle-edits",
+        "baseMs": 8.693067999999997,
+        "candidateMs": 7.363484,
+        "speedup": 1.1805645262487157,
+        "rssRatio": 1.005905802450908,
+        "roundSpeedups": [
+          1.213942910537369,
+          1.1298607984450504,
+          1.2022506376317967
+        ]
+      },
+      {
+        "name": "deletion-heavy",
+        "baseMs": 13.451970000000017,
+        "candidateMs": 7.91033299999998,
+        "speedup": 1.7005567275107194,
+        "rssRatio": 1.0028938591328231,
+        "roundSpeedups": [
+          1.6521308540221518,
+          1.6860850713368696,
+          1.7005567275107194
+        ]
+      },
+      {
+        "name": "concurrent-inserts",
+        "baseMs": 5.663578999999999,
+        "candidateMs": 4.299159999999986,
+        "speedup": 1.3173687418007278,
+        "rssRatio": 0.9908771214515061,
+        "roundSpeedups": [
+          1.213757650386027,
+          1.6108536031421614,
+          1.3660549192969111
+        ]
+      },
+      {
+        "name": "incremental-merge",
+        "baseMs": 33.313271999999984,
+        "candidateMs": 15.374077999999997,
+        "speedup": 2.16684681839132,
+        "rssRatio": 1.0028319093788998,
+        "roundSpeedups": [
+          2.16684681839132,
+          1.9974016887509571,
+          2.2438346890376826
+        ]
+      },
+      {
+        "name": "redundant-merge",
+        "baseMs": 30.152363000000037,
+        "candidateMs": 0.08694499999998584,
+        "speedup": 346.7981252516527,
+        "rssRatio": 0.8110715726915881,
+        "roundSpeedups": [
+          376.16394825296646,
+          280.5332588411323,
+          346.7981252516527
+        ]
+      }
+    ]
+  },
+  "correctness": {
+    "baseCorrectness": {
+      "status": "pass",
+      "cases": 7886,
+      "suite": "holdout",
+      "seeds": [
+        90000,
+        90001,
+        90002,
+        90003,
+        90004,
+        90005,
+        90006,
+        90007,
+        90008,
+        90009,
+        90010,
+        90011,
+        90012,
+        90013,
+        90014,
+        90015,
+        90016,
+        90017,
+        90018,
+        90019,
+        90020,
+        90021,
+        90022,
+        90023
+      ],
+      "corpus": [
+        {
+          "name": "ff-full",
+          "fixture": "ff-raw.json",
+          "fixtureSha256": "3ed8056ca141b7a513e4d3cc4790e5490869cb440753b0d3a4ddaf4ce18b26ee",
+          "operations": 26078,
+          "transactions": 3727,
+          "fullTrace": true,
+          "operationCap": null
+        },
+        {
+          "name": "git-prefix",
+          "fixture": "git-makefile-raw.json",
+          "fixtureSha256": "f4c5056f538d1e2a4490c6632558f26bd8d1c4147801bce2ffc2a9674f37a63d",
+          "operations": 31576,
+          "transactions": 143,
+          "fullTrace": false,
+          "operationCap": 32000
+        },
+        {
+          "name": "node-prefix",
+          "fixture": "node_nodecc-raw.json",
+          "fixtureSha256": "0d556fdf974f9f5da7fd0336121029c5542220f830ad6e6ca2e93f64af6e3e1f",
+          "operations": 30514,
+          "transactions": 2,
+          "fullTrace": false,
+          "operationCap": 32000
+        },
+        {
+          "name": "append",
+          "operations": 6000,
+          "synthetic": true
+        },
+        {
+          "name": "middle-edits",
+          "operations": 4400,
+          "synthetic": true
+        },
+        {
+          "name": "deletion-heavy",
+          "operations": 5400,
+          "synthetic": true
+        },
+        {
+          "name": "concurrent-inserts",
+          "operations": 2720,
+          "synthetic": true
+        },
+        {
+          "name": "incremental-merge",
+          "operations": 3136,
+          "merges": 5,
+          "synthetic": true
+        },
+        {
+          "name": "redundant-merge",
+          "operations": 7000,
+          "merges": 12,
+          "synthetic": true
+        }
+      ],
+      "workloadModuleSha256": "601304b1040338d7e600ad0b0323d91db9828680e3b6e662cdc54fb3c2eb84a4"
+    },
+    "candidateCorrectness": {
+      "status": "pass",
+      "cases": 7886,
+      "suite": "holdout",
+      "seeds": [
+        90000,
+        90001,
+        90002,
+        90003,
+        90004,
+        90005,
+        90006,
+        90007,
+        90008,
+        90009,
+        90010,
+        90011,
+        90012,
+        90013,
+        90014,
+        90015,
+        90016,
+        90017,
+        90018,
+        90019,
+        90020,
+        90021,
+        90022,
+        90023
+      ],
+      "corpus": [
+        {
+          "name": "ff-full",
+          "fixture": "ff-raw.json",
+          "fixtureSha256": "3ed8056ca141b7a513e4d3cc4790e5490869cb440753b0d3a4ddaf4ce18b26ee",
+          "operations": 26078,
+          "transactions": 3727,
+          "fullTrace": true,
+          "operationCap": null
+        },
+        {
+          "name": "git-prefix",
+          "fixture": "git-makefile-raw.json",
+          "fixtureSha256": "f4c5056f538d1e2a4490c6632558f26bd8d1c4147801bce2ffc2a9674f37a63d",
+          "operations": 31576,
+          "transactions": 143,
+          "fullTrace": false,
+          "operationCap": 32000
+        },
+        {
+          "name": "node-prefix",
+          "fixture": "node_nodecc-raw.json",
+          "fixtureSha256": "0d556fdf974f9f5da7fd0336121029c5542220f830ad6e6ca2e93f64af6e3e1f",
+          "operations": 30514,
+          "transactions": 2,
+          "fullTrace": false,
+          "operationCap": 32000
+        },
+        {
+          "name": "append",
+          "operations": 6000,
+          "synthetic": true
+        },
+        {
+          "name": "middle-edits",
+          "operations": 4400,
+          "synthetic": true
+        },
+        {
+          "name": "deletion-heavy",
+          "operations": 5400,
+          "synthetic": true
+        },
+        {
+          "name": "concurrent-inserts",
+          "operations": 2720,
+          "synthetic": true
+        },
+        {
+          "name": "incremental-merge",
+          "operations": 3136,
+          "merges": 5,
+          "synthetic": true
+        },
+        {
+          "name": "redundant-merge",
+          "operations": 7000,
+          "merges": 12,
+          "synthetic": true
+        }
+      ],
+      "workloadModuleSha256": "601304b1040338d7e600ad0b0323d91db9828680e3b6e662cdc54fb3c2eb84a4"
+    }
+  },
+  "sourceEquality": "git diff 7761ec37c7a43bceee74d5e68bb62561c433f84e 505b81668566fb33ff1142391b14e8c9d7a36b63 -- src produced no differences",
+  "archive": {
+    "path": "pilot-2026-10-22.tar.gz",
+    "sha256": "5108c0278663160fb98c39b217d22550e4ac938658b294b0050fed1a28d1e2ac"
+  },
+  "runs": [
+    {
+      "directory": "2026-10-22T07-43-31.728Z-8e47d133",
+      "base": "80e521c40fcb65d7f294828473812e072e774bff",
+      "candidate": "80e521c40fcb65d7f294828473812e072e774bff",
+      "decision": {
+        "status": "discard",
+        "speedup": 1.0259915886428552,
+        "roundSpeedups": [
+          0.9975543145512884,
+          1.0391273875503684,
+          0.9639532587957631
+        ],
+        "reasons": [
+          "aggregate gain below 3%",
+          "redundant-merge: latency regression above 5%",
+          "gain did not repeat in every paired round"
+        ],
+        "workloads": [
+          {
+            "name": "ff-full",
+            "baseMs": 423.59126300000025,
+            "candidateMs": 433.7360530000001,
+            "speedup": 0.9766106830874863,
+            "rssRatio": 1.0021049521769636,
+            "roundSpeedups": [
+              1.01003878757404,
+              0.9766106830874863,
+              0.9941577124961326
+            ]
+          },
+          {
+            "name": "git-prefix",
+            "baseMs": 548.2384300000001,
+            "candidateMs": 541.7052600000002,
+            "speedup": 1.0120603776304478,
+            "rssRatio": 0.9889969886495251,
+            "roundSpeedups": [
+              1.0345061057741987,
+              0.9293262185430403,
+              0.9928562127306013
+            ]
+          },
+          {
+            "name": "node-prefix",
+            "baseMs": 450.90403300000025,
+            "candidateMs": 454.7044109999997,
+            "speedup": 0.9916420911958133,
+            "rssRatio": 0.9998331177771288,
+            "roundSpeedups": [
+              1.0578399887130205,
+              0.9689774557965689,
+              1.0044068384680775
+            ]
+          },
+          {
+            "name": "append",
+            "baseMs": 44.003073,
+            "candidateMs": 43.236921000000024,
+            "speedup": 1.017719855676124,
+            "rssRatio": 0.9931002993252499,
+            "roundSpeedups": [
+              0.9975146511631213,
+              1.0220484377606793,
+              1.017719855676124
+            ]
+          },
+          {
+            "name": "middle-edits",
+            "baseMs": 10.918547000000004,
+            "candidateMs": 9.043502000000004,
+            "speedup": 1.2073361624733427,
+            "rssRatio": 0.9978030561929405,
+            "roundSpeedups": [
+              0.9004382599043581,
+              1.3700424664452042,
+              0.9582775566367995
+            ]
+          },
+          {
+            "name": "deletion-heavy",
+            "baseMs": 13.969042000000002,
+            "candidateMs": 13.086979999999983,
+            "speedup": 1.0673999654618576,
+            "rssRatio": 1.0079896779316162,
+            "roundSpeedups": [
+              1.0195052231701394,
+              1.058617790194957,
+              1.0673999654618576
+            ]
+          },
+          {
+            "name": "concurrent-inserts",
+            "baseMs": 5.8444740000000195,
+            "candidateMs": 5.49295699999999,
+            "speedup": 1.0639941292094641,
+            "rssRatio": 1.005950548886837,
+            "roundSpeedups": [
+              1.0910618816058524,
+              1.0800534882491837,
+              0.9463553204549554
+            ]
+          },
+          {
+            "name": "incremental-merge",
+            "baseMs": 33.311455999999964,
+            "candidateMs": 34.197677,
+            "speedup": 0.9740853450367394,
+            "rssRatio": 0.9979631471744588,
+            "roundSpeedups": [
+              0.918591000700274,
+              1.0105524984364787,
+              0.9725346256706264
+            ]
+          },
+          {
+            "name": "redundant-merge",
+            "baseMs": 30.858675000000005,
+            "candidateMs": 32.63516400000003,
+            "speedup": 0.9455651885187394,
+            "rssRatio": 0.9998531031950055,
+            "roundSpeedups": [
+              0.9642810315756232,
+              0.9928118430100835,
+              0.756565317469128
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "directory": "2026-10-22T07-45-25.270Z-4d9a87de",
+      "base": "80e521c40fcb65d7f294828473812e072e774bff",
+      "candidate": "4dafb9982cf22ca7d51749afe99de17620ad04ce",
+      "decision": {
+        "status": "keep",
+        "speedup": 1.8808190757272378,
+        "roundSpeedups": [
+          1.874000907059031,
+          1.8174113948650832,
+          1.914782961687184
+        ],
+        "reasons": [],
+        "workloads": [
+          {
+            "name": "ff-full",
+            "baseMs": 420.6203600000001,
+            "candidateMs": 417.92793400000005,
+            "speedup": 1.0064423212256495,
+            "rssRatio": 1.002296721615114,
+            "roundSpeedups": [
+              1.024075444723834,
+              1.010865243738144,
+              1.0064423212256495
+            ]
+          },
+          {
+            "name": "git-prefix",
+            "baseMs": 541.3929989999997,
+            "candidateMs": 549.6515410000002,
+            "speedup": 0.9849749497927807,
+            "rssRatio": 1.007142299586293,
+            "roundSpeedups": [
+              0.9027661160189456,
+              0.9967199380379875,
+              1.0672374554481592
+            ]
+          },
+          {
+            "name": "node-prefix",
+            "baseMs": 453.07341900000006,
+            "candidateMs": 452.96010400000023,
+            "speedup": 1.000250165520096,
+            "rssRatio": 1.0023695697360215,
+            "roundSpeedups": [
+              0.9780407064262789,
+              1.1129831856348988,
+              0.9902671737288363
+            ]
+          },
+          {
+            "name": "append",
+            "baseMs": 43.66848799999997,
+            "candidateMs": 44.480087999999995,
+            "speedup": 0.9817536332212287,
+            "rssRatio": 1.0030230055848748,
+            "roundSpeedups": [
+              0.9258672988996437,
+              0.9867140325801509,
+              1.0253350345984478
+            ]
+          },
+          {
+            "name": "middle-edits",
+            "baseMs": 9.07215500000001,
+            "candidateMs": 8.95723799999999,
+            "speedup": 1.012829512847601,
+            "rssRatio": 0.9977634074002042,
+            "roundSpeedups": [
+              1.033548332640722,
+              0.9247225757148912,
+              1.0136966710249553
+            ]
+          },
+          {
+            "name": "deletion-heavy",
+            "baseMs": 14.392945999999995,
+            "candidateMs": 13.813558,
+            "speedup": 1.0419434297810886,
+            "rssRatio": 0.997627755263418,
+            "roundSpeedups": [
+              1.227408926932637,
+              0.9591769935093447,
+              1.0143704467741046
+            ]
+          },
+          {
+            "name": "concurrent-inserts",
+            "baseMs": 6.168198000000018,
+            "candidateMs": 5.760575999999986,
+            "speedup": 1.070760632270112,
+            "rssRatio": 1.0016418676244228,
+            "roundSpeedups": [
+              0.9772464070824123,
+              1.0111362444070622,
+              1.1326884208782317
+            ]
+          },
+          {
+            "name": "incremental-merge",
+            "baseMs": 33.67157900000001,
+            "candidateMs": 32.709113,
+            "speedup": 1.0294250106996177,
+            "rssRatio": 1.006679389312977,
+            "roundSpeedups": [
+              1.0059291185235044,
+              1.0365487746488276,
+              1.0551122928615266
+            ]
+          },
+          {
+            "name": "redundant-merge",
+            "baseMs": 30.129291000000023,
+            "candidateMs": 0.1158399999999915,
+            "speedup": 260.0940176105165,
+            "rssRatio": 0.8088031000950501,
+            "roundSpeedups": [
+              273.0384196011127,
+              210.29224985339337,
+              258.1630646613623
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "directory": "2026-10-22T07-47-03.814Z-d86803e8",
+      "base": "80e521c40fcb65d7f294828473812e072e774bff",
+      "candidate": "c634139d1e479c584aeb9aaadeec57e8a67450cd",
+      "decision": {
+        "status": "discard",
+        "speedup": 2.2474486510679035,
+        "roundSpeedups": [
+          2.2328970960989376,
+          2.192663874636517,
+          2.2474951258428417
+        ],
+        "reasons": [
+          "redundant-merge: latency regression above 5%"
+        ],
+        "workloads": [
+          {
+            "name": "ff-full",
+            "baseMs": 451.2138520000003,
+            "candidateMs": 122.16910699999994,
+            "speedup": 3.693354752932757,
+            "rssRatio": 1.015726621348521,
+            "roundSpeedups": [
+              3.9164958511164105,
+              3.367821393064221,
+              3.397168942226943
+            ]
+          },
+          {
+            "name": "git-prefix",
+            "baseMs": 551.7849080000001,
+            "candidateMs": 347.81129599999986,
+            "speedup": 1.5864490726603666,
+            "rssRatio": 1.029150526274602,
+            "roundSpeedups": [
+              1.8459562905003506,
+              1.5103239657217715,
+              1.5864490726603666
+            ]
+          },
+          {
+            "name": "node-prefix",
+            "baseMs": 450.62042599999995,
+            "candidateMs": 183.5323860000001,
+            "speedup": 2.45526381376636,
+            "rssRatio": 1.0195766753116373,
+            "roundSpeedups": [
+              2.45526381376636,
+              2.3003392148284862,
+              2.4792310503816277
+            ]
+          },
+          {
+            "name": "append",
+            "baseMs": 42.160067999999995,
+            "candidateMs": 1.899963999999997,
+            "speedup": 22.18992991446157,
+            "rssRatio": 1.0075252961814207,
+            "roundSpeedups": [
+              22.18992991446157,
+              19.74464842139427,
+              22.520100564767507
+            ]
+          },
+          {
+            "name": "middle-edits",
+            "baseMs": 8.595381000000003,
+            "candidateMs": 7.796216000000001,
+            "speedup": 1.1025067802123494,
+            "rssRatio": 0.9897106419979711,
+            "roundSpeedups": [
+              1.1198673818170248,
+              1.0569507816471404,
+              1.1707466867089993
+            ]
+          },
+          {
+            "name": "deletion-heavy",
+            "baseMs": 13.552312999999998,
+            "candidateMs": 7.9555679999999995,
+            "speedup": 1.7035003660329469,
+            "rssRatio": 1.0146367996835286,
+            "roundSpeedups": [
+              1.6341976261514306,
+              1.8415522401661815,
+              1.7035003660329469
+            ]
+          },
+          {
+            "name": "concurrent-inserts",
+            "baseMs": 6.333090999999996,
+            "candidateMs": 4.691367999999983,
+            "speedup": 1.3499454743264692,
+            "rssRatio": 0.9980727291170056,
+            "roundSpeedups": [
+              1.3706972038859546,
+              1.49707196692787,
+              1.3016596590165188
+            ]
+          },
+          {
+            "name": "incremental-merge",
+            "baseMs": 35.36950999999999,
+            "candidateMs": 17.47891900000002,
+            "speedup": 2.023552486283617,
+            "rssRatio": 1.0032476836374056,
+            "roundSpeedups": [
+              2.087145667937031,
+              1.900866008933387,
+              1.984156057064667
+            ]
+          },
+          {
+            "name": "redundant-merge",
+            "baseMs": 29.09737400000006,
+            "candidateMs": 32.576261999999986,
+            "speedup": 0.8932078824758983,
+            "rssRatio": 1.0022841143530798,
+            "roundSpeedups": [
+              0.6690826127670847,
+              0.9154931712073762,
+              0.9440169183098949
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "directory": "2026-10-22T07-48-22.834Z-9fe66426",
+      "base": "80e521c40fcb65d7f294828473812e072e774bff",
+      "candidate": "bcfdc1ad625a682e8eb6b914b144a0f67f611d9a",
+      "decision": {
+        "status": "discard",
+        "speedup": 0.9681211489084111,
+        "roundSpeedups": [
+          0.9868170090366184,
+          0.9853250738976246,
+          0.970954279908724
+        ],
+        "reasons": [
+          "aggregate gain below 3%",
+          "deletion-heavy: latency regression above 5%",
+          "concurrent-inserts: latency regression above 5%",
+          "gain did not repeat in every paired round"
+        ],
+        "workloads": [
+          {
+            "name": "ff-full",
+            "baseMs": 425.01837000000023,
+            "candidateMs": 427.74539400000003,
+            "speedup": 0.9936246560728604,
+            "rssRatio": 1.00383537394896,
+            "roundSpeedups": [
+              1.003212471373374,
+              1.0091022669903424,
+              0.9928445380436753
+            ]
+          },
+          {
+            "name": "git-prefix",
+            "baseMs": 567.2055620000001,
+            "candidateMs": 564.1401970000002,
+            "speedup": 1.0054336936391006,
+            "rssRatio": 0.9965963772935331,
+            "roundSpeedups": [
+              1.0054336936391006,
+              0.9653860176809681,
+              1.0475143037573855
+            ]
+          },
+          {
+            "name": "node-prefix",
+            "baseMs": 449.8521209999999,
+            "candidateMs": 466.9951060000001,
+            "speedup": 0.9632908679775326,
+            "rssRatio": 0.9902467489163055,
+            "roundSpeedups": [
+              1.0587326278071427,
+              0.981040273270674,
+              0.9428476718052412
+            ]
+          },
+          {
+            "name": "append",
+            "baseMs": 42.62461200000001,
+            "candidateMs": 43.26688200000001,
+            "speedup": 0.9851556208741828,
+            "rssRatio": 1.0012824458807839,
+            "roundSpeedups": [
+              0.9540907345058884,
+              1.0045458094253246,
+              0.9895464407135688
+            ]
+          },
+          {
+            "name": "middle-edits",
+            "baseMs": 8.906628000000012,
+            "candidateMs": 8.875276999999997,
+            "speedup": 1.0035323967916736,
+            "rssRatio": 1,
+            "roundSpeedups": [
+              0.9670589272236256,
+              1.0070813742108122,
+              1.0275941810041536
+            ]
+          },
+          {
+            "name": "deletion-heavy",
+            "baseMs": 13.403143,
+            "candidateMs": 14.127668,
+            "speedup": 0.9487158814887213,
+            "rssRatio": 1.0016752069373276,
+            "roundSpeedups": [
+              0.9862753003538858,
+              0.9909892145028465,
+              0.9187604116810911
+            ]
+          },
+          {
+            "name": "concurrent-inserts",
+            "baseMs": 5.602766000000003,
+            "candidateMs": 6.7828250000000025,
+            "speedup": 0.8260224906289046,
+            "rssRatio": 1.0007179487179487,
+            "roundSpeedups": [
+              0.8810093573557185,
+              0.8536067337972363,
+              0.8546476898379476
+            ]
+          },
+          {
+            "name": "incremental-merge",
+            "baseMs": 33.79357900000002,
+            "candidateMs": 33.703858000000025,
+            "speedup": 1.0026620394614765,
+            "rssRatio": 1.0021818526775126,
+            "roundSpeedups": [
+              1.0572677762883993,
+              1.0027052284598608,
+              0.9857829219105166
+            ]
+          },
+          {
+            "name": "redundant-merge",
+            "baseMs": 30.417169,
+            "candidateMs": 30.437116999999944,
+            "speedup": 0.9993446159831779,
+            "rssRatio": 0.9958108698819758,
+            "roundSpeedups": [
+              0.9803715347997412,
+              1.0674767845656363,
+              0.9937514465472392
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "directory": "2026-10-22T07-50-13.008Z-8fa235ac",
+      "base": "4dafb9982cf22ca7d51749afe99de17620ad04ce",
+      "candidate": "7761ec37c7a43bceee74d5e68bb62561c433f84e",
+      "decision": {
+        "status": "keep",
+        "speedup": 2.2848567816850536,
+        "roundSpeedups": [
+          2.3746302171666387,
+          2.2305791006618576,
+          2.160690129675906
+        ],
+        "reasons": [],
+        "workloads": [
+          {
+            "name": "ff-full",
+            "baseMs": 417.78730100000007,
+            "candidateMs": 118.57338700000003,
+            "speedup": 3.523449161488488,
+            "rssRatio": 1.0055086301872935,
+            "roundSpeedups": [
+              3.523449161488488,
+              3.625263620566661,
+              3.4635972189415516
+            ]
+          },
+          {
+            "name": "git-prefix",
+            "baseMs": 532.7360470000001,
+            "candidateMs": 304.5512829999998,
+            "speedup": 1.7492490648939425,
+            "rssRatio": 0.9976973812590251,
+            "roundSpeedups": [
+              1.7777028144985239,
+              1.758122596401542,
+              1.5540783157905562
+            ]
+          },
+          {
+            "name": "node-prefix",
+            "baseMs": 424.9314770000001,
+            "candidateMs": 184.81827799999985,
+            "speedup": 2.2991853489729,
+            "rssRatio": 1.0185479154482413,
+            "roundSpeedups": [
+              2.183702111654508,
+              2.166043685283871,
+              2.61153835103757
+            ]
+          },
+          {
+            "name": "append",
+            "baseMs": 41.305026999999995,
+            "candidateMs": 2.0436580000000077,
+            "speedup": 20.21132058299375,
+            "rssRatio": 1.00816678502587,
+            "roundSpeedups": [
+              23.54539118313288,
+              19.971461956941845,
+              18.831566892025272
+            ]
+          },
+          {
+            "name": "middle-edits",
+            "baseMs": 8.483711999999997,
+            "candidateMs": 7.558115000000001,
+            "speedup": 1.1224640006139093,
+            "rssRatio": 1.0073569081367404,
+            "roundSpeedups": [
+              1.1745691882169025,
+              1.1217684189297472,
+              1.0713765672868805
+            ]
+          },
+          {
+            "name": "deletion-heavy",
+            "baseMs": 13.355187999999998,
+            "candidateMs": 7.863755999999995,
+            "speedup": 1.6983217688849968,
+            "rssRatio": 1.0055384012155075,
+            "roundSpeedups": [
+              1.6983217688849968,
+              1.4627530829432829,
+              1.8777766716829738
+            ]
+          },
+          {
+            "name": "concurrent-inserts",
+            "baseMs": 5.68960899999999,
+            "candidateMs": 4.318116000000003,
+            "speedup": 1.3176137463653097,
+            "rssRatio": 1.0026065624041705,
+            "roundSpeedups": [
+              1.2419513728434894,
+              1.280727137623907,
+              1.3951631022165236
+            ]
+          },
+          {
+            "name": "incremental-merge",
+            "baseMs": 32.179486999999995,
+            "candidateMs": 15.711058999999977,
+            "speedup": 2.0482061075577427,
+            "rssRatio": 0.990370090634441,
+            "roundSpeedups": [
+              2.0156358524432463,
+              2.0482061075577427,
+              2.1314429233597805
+            ]
+          },
+          {
+            "name": "redundant-merge",
+            "baseMs": 0.10291599999999335,
+            "candidateMs": 0.08934999999999604,
+            "speedup": 1.1518298824845876,
+            "rssRatio": 1.0011822480902146,
+            "roundSpeedups": [
+              1.4928706789521953,
+              1.1518298824845876,
+              0.6481335036600396
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "directory": "2026-10-22T07-51-30.920Z-29f32bea",
+      "base": "80e521c40fcb65d7f294828473812e072e774bff",
+      "candidate": "7761ec37c7a43bceee74d5e68bb62561c433f84e",
+      "decision": {
+        "status": "keep",
+        "speedup": 4.38616620652196,
+        "roundSpeedups": [
+          4.363220608807064,
+          4.321248724499151,
+          4.42260704968818
+        ],
+        "reasons": [],
+        "workloads": [
+          {
+            "name": "ff-full",
+            "baseMs": 412.58368599999994,
+            "candidateMs": 119.41727400000002,
+            "speedup": 3.4549749142657524,
+            "rssRatio": 1.0112604297423022,
+            "roundSpeedups": [
+              3.4631013684000194,
+              3.5266524117259657,
+              3.3118943191975525
+            ]
+          },
+          {
+            "name": "git-prefix",
+            "baseMs": 535.0323149999999,
+            "candidateMs": 308.376354,
+            "speedup": 1.7349978623847402,
+            "rssRatio": 1.0093713393205779,
+            "roundSpeedups": [
+              1.7188995398784699,
+              1.6769358050012075,
+              1.7464018937397932
+            ]
+          },
+          {
+            "name": "node-prefix",
+            "baseMs": 435.24056399999995,
+            "candidateMs": 180.24054999999998,
+            "speedup": 2.4147760534463525,
+            "rssRatio": 1.021827988706755,
+            "roundSpeedups": [
+              2.330107979953305,
+              2.327231437373492,
+              2.6992823260408647
+            ]
+          },
+          {
+            "name": "append",
+            "baseMs": 41.119348,
+            "candidateMs": 1.9687669999999997,
+            "speedup": 20.885837684195238,
+            "rssRatio": 1.010752688172043,
+            "roundSpeedups": [
+              20.825370396801645,
+              22.200075066481663,
+              19.077185884885612
+            ]
+          },
+          {
+            "name": "middle-edits",
+            "baseMs": 8.693067999999997,
+            "candidateMs": 7.363484,
+            "speedup": 1.1805645262487157,
+            "rssRatio": 1.005905802450908,
+            "roundSpeedups": [
+              1.213942910537369,
+              1.1298607984450504,
+              1.2022506376317967
+            ]
+          },
+          {
+            "name": "deletion-heavy",
+            "baseMs": 13.451970000000017,
+            "candidateMs": 7.91033299999998,
+            "speedup": 1.7005567275107194,
+            "rssRatio": 1.0028938591328231,
+            "roundSpeedups": [
+              1.6521308540221518,
+              1.6860850713368696,
+              1.7005567275107194
+            ]
+          },
+          {
+            "name": "concurrent-inserts",
+            "baseMs": 5.663578999999999,
+            "candidateMs": 4.299159999999986,
+            "speedup": 1.3173687418007278,
+            "rssRatio": 0.9908771214515061,
+            "roundSpeedups": [
+              1.213757650386027,
+              1.6108536031421614,
+              1.3660549192969111
+            ]
+          },
+          {
+            "name": "incremental-merge",
+            "baseMs": 33.313271999999984,
+            "candidateMs": 15.374077999999997,
+            "speedup": 2.16684681839132,
+            "rssRatio": 1.0028319093788998,
+            "roundSpeedups": [
+              2.16684681839132,
+              1.9974016887509571,
+              2.2438346890376826
+            ]
+          },
+          {
+            "name": "redundant-merge",
+            "baseMs": 30.152363000000037,
+            "candidateMs": 0.08694499999998584,
+            "speedup": 346.7981252516527,
+            "rssRatio": 0.8110715726915881,
+            "roundSpeedups": [
+              376.16394825296646,
+              280.5332588411323,
+              346.7981252516527
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "candidate": "7761ec37c7a43bceee74d5e68bb62561c433f84e",
+  "sourceEquivalentHead": "505b81668566fb33ff1142391b14e8c9d7a36b63",
+  "command": [
+    "agent-heavy",
+    "timeout",
+    "180s",
+    "node",
+    "research/full-traces.mjs",
+    "SNAPSHOT_ROOT"
+  ],
+  "exitCode": 124,
+  "durationSeconds": 180.12371113098925,
+  "stdout": "{\"name\":\"ff-raw\",\"operations\":26078,\"status\":\"pass\",\"elapsedMs\":145.171225,\"peakRssBytes\":90537984}\n{\"name\":\"git-makefile-raw\",\"operations\":348819,\"status\":\"pass\",\"elapsedMs\":24856.507256,\"peakRssBytes\":197709824}\n",
+  "status": "incomplete",
+  "note": "Firefox and full Git Makefile outputs matched stored endContent. Full 947337-operation Node trace exceeded the 180-second total safety budget; no correctness result or speed claim for that full trace."
+}
