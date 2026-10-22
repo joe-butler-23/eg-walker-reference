@@ -1,3 +1,11 @@
+# Eg-walker speed research
+
+This fork optimises TypeScript execution speed and memory while preserving the upstream API, sequence ordering and merge semantics. The immutable upstream reference is commit `7287f4bc2c054984838b3582a27b4fea8f6d8161`.
+
+Canonical commands and the experiment contract live in `research/README.md`. The model proposes one hypothesis; the frozen evaluator admits candidates. Candidate edits are limited to `src/`. Never change tests, fixtures, reference code, benchmark workloads or acceptance rules to make a candidate pass. Run only finite, explicitly budgeted campaigns. Do not push upstream or auto-merge candidates.
+
+Use the canonical Beads skill at `~/.agents/skills/beads/SKILL.md`. The only authoritative tracker checkout is this Minworker repository. The active user-authorised implementation workflow may commit and push code and tracker state to `joe-butler-23/eg-walker-reference`, never `josephg/eg-walker-reference`.
+
 # Agent Instructions
 
 This project uses **bd** (beads) for issue tracking. Run `bd prime` for full workflow context.
