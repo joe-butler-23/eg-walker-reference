@@ -50,4 +50,4 @@ Do not edit the evaluator, result Markdown or dependencies while a campaign eval
 
 The scope boundary catches ordinary accidental evaluator edits; this is not a sandbox for a hostile model. Candidate code has normal local process privileges. Run on a dedicated machine for stronger performance isolation, and use an OS sandbox for untrusted code.
 
-Current measured results and known limits: [RESULTS.md](RESULTS.md). Native CLI model generation was exercised and yielded a verified patch; subsequent clean unattended cycles failed on provider connectivity/overload. The loop is paused; no background campaign or fully green unattended run is claimed.
+Current measured results and known limits: [RESULTS.md](RESULTS.md). The first deletion-first campaign completed three unattended propose/commit/evaluate/discard cycles with intact evidence and stable evaluator fingerprints. None met every performance gate; the incumbent source is unchanged. No background campaign is running.

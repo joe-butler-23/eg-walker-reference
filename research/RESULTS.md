@@ -31,14 +31,32 @@ All workload medians improved. Corpus geometric mean is 5.66×, influenced stron
 - Unchanged-code self-comparison was rejected (apparent 2.6% gain did not repeat). The equal-frontier shortcut was discarded. Cursor-only was discarded for a redundant-merge regression; combined cursor + no-op shortcut passed. Acceptance thresholds were never weakened.
 - A deliberately wrong checkout implementation failed before any benchmark, proving semantic failures cannot buy speed.
 
+## Deletion-first campaign
+
+Campaign `2026-10-22T09-26-53.468Z` started from `ae622e123b3e36b96f3dc9272aabb8151a330458`, with source identical to the first pilot winner. The proposal priority changed to removing entire pieces of work; evaluator rules, workloads, tests and resource limits did not change.
+
+| Proposal | Corpus speedup | Decision | Reason |
+| --- | ---: | --- | --- |
+| Delete full-history sentinel allocation/fills; grow lookup arrays on demand | 0.984× | Discard | Incremental merge slowed 19.8%; aggregate gain failed. |
+| Build fresh checkout output once instead of splicing it for every edit | 1.333× | Discard | Incremental merge slowed 5.19%, redundant merge 9.24%. |
+| Remove repeated insert-right-boundary lookup | 1.017× | Discard | Below 3% gain; aggregate improvement did not repeat in every paired round. |
+
+All three passed unchanged conformance/fuzz tests, 5,294 development differential checks each, and exact generated declaration comparison. These repeat the development suite, not independent holdout evidence. No new source was retained; the prior winner's holdout and full-trace evidence remains applicable to its byte-identical source. Rejected candidates did not receive additional holdout or full-trace certification.
+
+The second proposal removes every intermediate output-array mutation from fresh checkout: the ordered CRDT items already encode its final visible values. Independent source review supports this invariant, including generic payload identity; incremental merge must keep its existing snapshot mutation path. It is a promising deletion, not an admitted speed improvement. All seven checkout workloads improved in this measurement, including append at 4.37×, but the merge guards still reject it. Setup is outside the timer but can affect later runtime/JIT state; these data do not establish why the merge timings regressed. No rejected candidate was repeatedly rerun to seek a favourable result, and no threshold was relaxed.
+
 ## Autonomous driver status
 
-The bounded driver is implemented and has produced a useful source patch. Its first draft exceeded an 80k cumulative token budget (input context counts repeatedly), and failed closed. The native draft-completion gate and a declared 200k token cap fixed that proposal boundary. A later evaluation was invalidated when result documentation changed mid-run; the evaluator rejected it, and the exact source was rerun independently with immutable inputs. Subsequent unattended cycles hit provider WebSocket and overload failures; they stopped without advancing the incumbent. No completely green unattended end-to-end campaign is claimed. The loop is paused, not running in the background.
+The bounded driver has now completed a clean unattended three-proposal campaign: propose → source-only commit → frozen correctness and paired timing → discard → durable campaign record. All proposal, commit and evaluation subprocesses exited 0; the supervisor exited 0, with three completed evaluations, zero admitted candidates and zero failed experiments. Evaluator fingerprints were stable across all three runs. A completed discard proves orchestration, not a speed win. No campaign is left running.
+
+Earlier failures remain historical evidence: the initial 80k cumulative token cap was exceeded, documentation changed during one measurement, and provider WebSocket/overload errors blocked later attempts. Those runs failed closed and did not advance the incumbent. The 200k model cap and all frozen acceptance rules were unchanged for this campaign.
 
 ## Evidence
 
 `evidence/final-2026-10-22.json` contains the final identities, samples, decisions, environment, candidate generation outcomes and limitations. `evidence/final-2026-10-22.tar.gz` preserves raw outputs/own exits for the final comparison, incremental comparison and wrong-output control. Model prompts/transcripts are excluded. The earlier six-run pilot remains in `evidence/pilot-2026-10-22.*` for attribution, not as the final source result.
 
 Final archive SHA-256: `9fbd1464dd658116fbed3408fc6e8e30c4c58903adb813ba6f9b45ef971404fa`.
+
+`evidence/deletion-2026-10-22.json` records the completed deletion-first campaign, exact candidates, all three decisions, raw samples, unchanged evaluator identities and own exits. `evidence/deletion-2026-10-22.tar.gz` preserves verifier outputs, sanitized native command metadata, completed campaign record and source patches for the rejected candidates. Native proposal prompts/transcripts are excluded. Archive SHA-256: `45f0434f31afebeacfde9a6ebb7a090c8936a4a0b94aec2ef75eedc9f815e61c`.
 
 Contracts and finite campaign commands: [README.md](README.md). Do not run while editing evaluator or result files. Native model draft completion is not certification: the frozen correctness/performance evaluator alone admits a candidate.
