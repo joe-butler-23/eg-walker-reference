@@ -593,6 +593,11 @@ export function mergeChangesIntoBranch<T>(branch: Branch<T>, oplog: ListOpLog<T>
         target.push(span)
       }
   })
+  if (newOps.length === 0) {
+    branch.version = causalGraph.findDominators(oplog.cg, [...branch.version, ...mergeVersion])
+    return
+  }
+
   // newOps and conflictOps will be filled in in reverse order. Fix!
   newOps.reverse(); conflictOps.reverse()
 
