@@ -327,7 +327,7 @@ function integrate(ctx: EditContext, cg: causalGraph.CausalGraph, newItem: Item,
   // We've found the position. Insert where the cursor points.
 }
 
-function apply1<T>(ctx: EditContext, snapshot: T[] | null, oplog: ListOpLog<T>, opId: number) {
+function apply1<T>(ctx: EditContext, snapshot: T[] | null, oplog: ListOpLog<T>, opId: number, insertCursor?: DocCursor): DocCursor | undefined {
   // This integrates the op into the document. This code is copied from reference-crdts.
   const op = oplog.ops[opId]
 
@@ -360,9 +360,10 @@ function apply1<T>(ctx: EditContext, snapshot: T[] | null, oplog: ListOpLog<T>, 
 
     // And mark that this delete corresponds to *that* item.
     ctx.delTargets[opId] = item.opId
+    return undefined
   } else {
     // Insert! This is much more complicated as we need to do the Yjs integration.
-    const cursor = findByCurPos(ctx, op.pos)
+    const cursor = insertCursor ?? findByCurPos(ctx, op.pos)
     // The cursor position is at the first valid insert location.
     if (cursor.idx > 0) {
       // Its valid because the previous item must be inserted in the current state.
@@ -406,6 +407,7 @@ function apply1<T>(ctx: EditContext, snapshot: T[] | null, oplog: ListOpLog<T>, 
 
     // And finally, actually insert it in the resulting document.
     if (snapshot) snapshot.splice(cursor.endPos, 0, op.content!)
+    return cursor
   }
 }
 
@@ -502,8 +504,15 @@ export function traverseAndApply<T>(
 
     // Then apply the operation.
     const [start, end] = consume
+    let previousInsertCursor: DocCursor | undefined
+    let previousPos = -1
     for (let lv = start; lv < end; lv++) {
-      apply1(ctx, snapshot, oplog, lv)
+      const op = oplog.ops[lv]
+      const cursor = op.type === 'ins' && previousInsertCursor !== undefined && op.pos === previousPos + 1
+        ? { idx: previousInsertCursor.idx + 1, endPos: previousInsertCursor.endPos + 1 }
+        : undefined
+      previousInsertCursor = apply1(ctx, snapshot, oplog, lv, cursor)
+      previousPos = op.pos
     }
 
     // After processing these operations, we're at the last version in the range.
